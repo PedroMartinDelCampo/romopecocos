@@ -18,9 +18,11 @@ import rompecocos.view.RompecabezasPane;
 public class Game extends Application {
     
     private final RompecabezasPane view;
+    private GameController controller;
     
     public Game(GameController controller) {
         view = new RompecabezasPane(controller);
+        this.controller = controller;
         controller.setView(view);
     }
 
@@ -31,6 +33,7 @@ public class Game extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rompecocos");
         primaryStage.show();
+        controller.setStage(primaryStage);
     }
     
 }

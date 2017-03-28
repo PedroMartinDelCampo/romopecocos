@@ -71,10 +71,15 @@ public class RompecabezasPane extends GridPane implements PieceListener {
         if (controller == null) return;
         MenuItem back = new MenuItem("Volver");
         MenuItem close = new MenuItem("Cerrar");
-        
+        MenuItem newGame = new MenuItem("Nuevo juego");
         MenuItem resetGame = new MenuItem("Reiniciar juego");
+        MenuItem solveGame = new MenuItem("Resolver Juego");
         resetGame.setOnAction((evt) -> controller.resetGame());
-        Menu game = new Menu("Juego", null, resetGame);
+        newGame.setOnAction((evt) -> controller.newGame());
+        solveGame.setOnAction((evt) -> controller.solve());
+        Menu game = new Menu("Opciones", null, resetGame, newGame, solveGame);
+        
+        
         
         MenuBar menuBar = new MenuBar(game);
         VBox box = new VBox(menuBar);
@@ -107,6 +112,7 @@ public class RompecabezasPane extends GridPane implements PieceListener {
         if (view.isActive()) {
             Point p = view.getCoords();
             rompecabezas.move(p);
+            controller.move(p);
             updatePieces();
             updateActivePoints();
             moveCount++;

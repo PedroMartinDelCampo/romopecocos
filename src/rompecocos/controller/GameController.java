@@ -7,6 +7,11 @@ package rompecocos.controller;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import rompecocos.App;
 import rompecocos.model.Point;
 import rompecocos.model.Rompecabezas;
 import rompecocos.view.RompecabezasPane;
@@ -22,6 +27,7 @@ public class GameController {
     private final int minMoves;
     private final int maxMoves;
     private final Stack<Point> moves;
+    private Stage stage;
 
     public GameController(Rompecabezas r) {
         rompecabezas = r;
@@ -36,6 +42,7 @@ public class GameController {
         while (!moves.empty())
             moves.pop();
         int count = (int) Math.round(Math.random()*(maxMoves - minMoves) + minMoves);
+        moves.push(rompecabezas.getBlank());
         for (int i = 0; i < count; i++) {
             List<Point> available = rompecabezas.activePoints();
             int length = available.size();
@@ -63,5 +70,27 @@ public class GameController {
         init();
         view.setRompecabezas(rompecabezas);
     }
+    
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+    
+    public void newGame(){
+        new App().start(stage);
+    }
+    
+    public void move(Point p){
+        moves.push(p);
+    }
+    
+    public void solve() {
+        moves.pop();
+        while(!moves.empty()) {
+            Point p = moves.pop();
+            rompecabezas.move(p);
+            view.setRompecabezas(rompecabezas);
+        }
+    }
+   
     
 }
