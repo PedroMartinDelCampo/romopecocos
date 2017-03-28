@@ -21,6 +21,7 @@ public class Game extends Application {
     
     public Game(GameController controller) {
         view = new RompecabezasPane(controller);
+        controller.setView(view);
     }
 
     @Override

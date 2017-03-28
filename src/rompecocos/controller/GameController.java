@@ -36,7 +36,6 @@ public class GameController {
         while (!moves.empty())
             moves.pop();
         int count = (int) Math.round(Math.random()*(maxMoves - minMoves) + minMoves);
-        System.out.println(count);
         for (int i = 0; i < count; i++) {
             List<Point> available = rompecabezas.activePoints();
             int length = available.size();
